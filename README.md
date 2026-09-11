@@ -55,17 +55,16 @@ Notion Watcher (Status: Approved) ➔ HTML Email Compiler (Gmail) ➔ Notion Sta
 
 ---
 
-**Documentaion**
+## Documentaion
 
-Scenario 1:Ingestion, AI Generation & Staging Engine
----
+**Scenario 1:** Ingestion, AI Generation & Staging Engine
+
 <img width="1824" height="947" alt="image" src="https://github.com/user-attachments/assets/0e87885f-7e22-47c1-a2ec-3f948f87ab62" />
----
 
-Scenario 2:HITL Approval Gate & Multi-Channel Dispatch
----
+**Scenario 2:** HITL Approval Gate & Multi-Channel Dispatch
+
 <img width="1824" height="947" alt="image" src="https://github.com/user-attachments/assets/58a4078e-ef6a-464b-98d4-d06f5c82e871" />
----
+
 
 
 
