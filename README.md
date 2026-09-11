@@ -31,8 +31,9 @@ Google Sheets (Raw Data) ➔ OpenRouter LLM (Copy) ➔ Pollinations AI (Image) �
 [ Phase 2: Automated Dispatch ]
 Notion Watcher (Status: Approved) ➔ HTML Email Compiler (Gmail) ➔ Notion Status Sync (Status: Sent)
 ```
---🧩 Pipeline Breakdown**
-Scenario 1: Asset Generation & Staging (Ai automation H)
+**🧩 Pipeline Breakdown**
+
+**Scenario 1:** Asset Generation & Staging (Ai automation H)
 Trigger: Listens for new records in Google Sheets.
 
 Copy Generation: Calls OpenRouter LLM API endpoints to produce structured JSON containing campaign titles and draft body copy.
