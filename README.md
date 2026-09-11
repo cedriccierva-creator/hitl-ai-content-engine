@@ -31,6 +31,8 @@ Google Sheets (Raw Data) ➔ OpenRouter LLM (Copy) ➔ Pollinations AI (Image) �
 [ Phase 2: Automated Dispatch ]
 Notion Watcher (Status: Approved) ➔ HTML Email Compiler (Gmail) ➔ Notion Status Sync (Status: Sent)
 ```
+---
+
 **🧩 Pipeline Breakdown**
 
 **Scenario 1:** Asset Generation & Staging (Ai automation H)
@@ -42,7 +44,7 @@ Image Synthesis: Dynamically constructs and URL-encodes (encodeURL()) image gene
 
 Database Staging: Pushes generated assets directly into a Notion Content & Lead Review database with Status = "Needs Review".
 
----
+
 
 **Scenario 2:** Approval Gate & Multi-Channel Dispatch (Make HITL Engine)
 Approval Polling: Monitors Notion every 15 minutes for items meeting the strict execution filter Status == "Approved".
@@ -51,7 +53,7 @@ HTML Compilation: Assembles dynamic raw HTML body code containing inline CSS sty
 
 Closed-Loop Sync: Dispatches the email via Gmail and immediately updates the Notion record status to Sent to prevent duplicate execution loops.
 
----
+
 
 **🛡️ Error Handling & System Hardening**
 Image Generation Fallback: A Set Variable error-handler route captures Pollinations API timeouts and injects a fallback static banner URL.
