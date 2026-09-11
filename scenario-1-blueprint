@@ -1,74 +1,94 @@
 {
-    "name": "Make HITL Engine",
+    "name": "Ai automation H",
     "flow": [
         {
-            "id": 7,
-            "module": "notion:watchDatabaseItems",
-            "version": 1,
+            "id": 1,
+            "module": "google-sheets:watchRows",
+            "version": 2,
             "parameters": {
-                "__IMTCONN__": 10992116,
-                "watchBy": "data_source",
-                "select": "create",
-                "limit": 10,
-                "data_source": "3d667e0e-a952-808d-8d5b-000b6358da3e"
+                "__IMTCONN__": 10964532,
+                "mode": "select",
+                "includesHeaders": true,
+                "limit": 2,
+                "valueRenderOption": "FORMATTED_VALUE",
+                "dateTimeRenderOption": "FORMATTED_STRING",
+                "from": "drive",
+                "spreadsheetId": "/1NQGNA8lTn2JS_vD-QHBV3sQ24nurfnEG/12nsxgUAQPKmIVpCk03vTTbftkGqoUVHQYjwS1lYN4Hs",
+                "sheetId": "Sheet1",
+                "tableFirstRow": "A1:Z1"
             },
             "mapper": {},
             "metadata": {
                 "designer": {
-                    "x": -7,
+                    "x": 0,
                     "y": 0
                 },
                 "restore": {
                     "parameters": {
                         "__IMTCONN__": {
-                            "label": "Cedric's Notion Internal connection",
+                            "label": "Cedric's Google connection (cedriccierva@gmail.com)",
                             "data": {
                                 "scoped": "true",
-                                "connection": "notion3"
+                                "connection": "google"
                             }
                         },
-                        "watchBy": {
-                            "label": "Data SourceThis must be used if your database has multiple data sources."
+                        "mode": {
+                            "label": "Search by path"
                         },
-                        "select": {
-                            "label": "created time"
+                        "includesHeaders": {
+                            "label": "Yes"
                         },
-                        "data_source": {
-                            "rpcSearch": {
-                                "label": "Content & Lead Review",
-                                "value": "3d667e0e-a952-808d-8d5b-000b6358da3e"
-                            }
+                        "valueRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted value"
+                        },
+                        "dateTimeRenderOption": {
+                            "mode": "chose",
+                            "label": "Formatted string"
+                        },
+                        "from": {
+                            "label": "My Drive"
+                        },
+                        "spreadsheetId": {
+                            "path": [
+                                "Automation ",
+                                "Social Content Engine"
+                            ]
+                        },
+                        "sheetId": {
+                            "label": "Sheet1"
                         }
                     }
                 },
                 "parameters": [
                     {
                         "name": "__IMTCONN__",
-                        "type": "account:notion2,notion3",
+                        "type": "account:google",
                         "label": "Connection",
                         "required": true
                     },
                     {
-                        "name": "watchBy",
+                        "name": "mode",
                         "type": "select",
-                        "label": "Watch By",
+                        "label": "Search Method",
                         "required": true,
                         "validate": {
                             "enum": [
-                                "data_source",
-                                "database"
+                                "select",
+                                "fromAll",
+                                "map"
                             ]
                         }
                     },
                     {
-                        "name": "select",
+                        "name": "includesHeaders",
                         "type": "select",
-                        "label": "Trigger By",
+                        "label": "Table contains headers",
                         "required": true,
                         "validate": {
                             "enum": [
-                                "create",
-                                "update"
+                                true,
+                                false
                             ]
                         }
                     },
@@ -79,1345 +99,976 @@
                         "required": true
                     },
                     {
-                        "name": "data_source",
-                        "type": "text",
-                        "label": "Data Source ID",
-                        "required": true
-                    }
-                ],
-                "interface": [
-                    {
-                        "name": "object",
-                        "type": "text",
-                        "label": "Object"
-                    },
-                    {
-                        "name": "id",
-                        "type": "text",
-                        "label": "Database Item ID"
-                    },
-                    {
-                        "name": "created_time",
-                        "type": "date",
-                        "label": "Created Time"
-                    },
-                    {
-                        "name": "last_edited_time",
-                        "type": "date",
-                        "label": "Last Edited Time"
-                    },
-                    {
-                        "name": "created_by",
-                        "spec": [
-                            {
-                                "name": "object",
-                                "type": "text",
-                                "label": "Object"
-                            },
-                            {
-                                "name": "id",
-                                "type": "text",
-                                "label": "ID"
-                            }
-                        ],
-                        "type": "collection",
-                        "label": "Created By"
-                    },
-                    {
-                        "name": "last_edited_by",
-                        "spec": [
-                            {
-                                "name": "object",
-                                "type": "text",
-                                "label": "Object"
-                            },
-                            {
-                                "name": "id",
-                                "type": "text",
-                                "label": "ID"
-                            }
-                        ],
-                        "type": "collection",
-                        "label": "Last Edited By"
-                    },
-                    {
-                        "name": "icon",
-                        "spec": [
-                            {
-                                "name": "type",
-                                "type": "text",
-                                "label": "Type"
-                            },
-                            {
-                                "name": "emoji",
-                                "type": "text",
-                                "label": "Emoji"
-                            },
-                            {
-                                "name": "external",
-                                "spec": [
-                                    {
-                                        "name": "url",
-                                        "type": "text",
-                                        "label": "URL"
-                                    }
-                                ],
-                                "type": "collection",
-                                "label": "External"
-                            }
-                        ],
-                        "type": "collection",
-                        "label": "Icon"
-                    },
-                    {
-                        "name": "cover",
-                        "spec": [
-                            {
-                                "name": "type",
-                                "type": "text",
-                                "label": "Type"
-                            },
-                            {
-                                "name": "external",
-                                "spec": [
-                                    {
-                                        "name": "url",
-                                        "type": "text",
-                                        "label": "URL"
-                                    }
-                                ],
-                                "type": "collection",
-                                "label": "External"
-                            }
-                        ],
-                        "type": "collection",
-                        "label": "Cover"
-                    },
-                    {
-                        "name": "parent",
-                        "spec": [
-                            {
-                                "name": "type",
-                                "type": "text",
-                                "label": "Type"
-                            },
-                            {
-                                "name": "workspace",
-                                "type": "boolean",
-                                "label": "Workspace"
-                            },
-                            {
-                                "name": "page_id",
-                                "type": "text",
-                                "label": "Page ID"
-                            },
-                            {
-                                "name": "database_id",
-                                "type": "text",
-                                "label": "Database ID"
-                            },
-                            {
-                                "name": "data_source_id",
-                                "type": "text",
-                                "label": "Data Source ID"
-                            }
-                        ],
-                        "type": "collection",
-                        "label": "Parent"
-                    },
-                    {
-                        "name": "archived",
-                        "type": "boolean",
-                        "label": "Archived"
-                    },
-                    {
-                        "name": "in_trash",
-                        "type": "boolean",
-                        "label": "In Trash"
-                    },
-                    {
-                        "name": "properties",
-                        "spec": {
-                            "spec": [
-                                {
-                                    "name": "id",
-                                    "type": "text",
-                                    "label": "ID"
-                                },
-                                {
-                                    "name": "type",
-                                    "type": "text",
-                                    "label": "Type"
-                                },
-                                {
-                                    "name": "people",
-                                    "spec": {
-                                        "spec": [
-                                            {
-                                                "name": "object",
-                                                "type": "text",
-                                                "label": "Object"
-                                            },
-                                            {
-                                                "name": "id",
-                                                "type": "text",
-                                                "label": "ID"
-                                            },
-                                            {
-                                                "name": "name",
-                                                "type": "text",
-                                                "label": "Name"
-                                            },
-                                            {
-                                                "name": "avatar_url",
-                                                "type": "text",
-                                                "label": "Avatar URL"
-                                            },
-                                            {
-                                                "name": "type",
-                                                "type": "text",
-                                                "label": "Type"
-                                            },
-                                            {
-                                                "name": "person",
-                                                "spec": [
-                                                    {
-                                                        "name": "email",
-                                                        "type": "text",
-                                                        "label": "Email"
-                                                    }
-                                                ],
-                                                "type": "collection",
-                                                "label": "Person"
-                                            }
-                                        ],
-                                        "type": "collection"
-                                    },
-                                    "type": "array",
-                                    "label": "People"
-                                },
-                                {
-                                    "name": "url",
-                                    "type": "text",
-                                    "label": "URL"
-                                },
-                                {
-                                    "name": "text",
-                                    "spec": {
-                                        "spec": [
-                                            {
-                                                "name": "type",
-                                                "type": "text",
-                                                "label": "Type"
-                                            },
-                                            {
-                                                "name": "text",
-                                                "spec": [
-                                                    {
-                                                        "name": "content",
-                                                        "type": "text",
-                                                        "label": "Content"
-                                                    },
-                                                    {
-                                                        "name": "link",
-                                                        "type": "text",
-                                                        "label": "Link"
-                                                    }
-                                                ],
-                                                "type": "collection",
-                                                "label": "Text"
-                                            },
-                                            {
-                                                "name": "annotations",
-                                                "spec": [
-                                                    {
-                                                        "name": "bold",
-                                                        "type": "boolean",
-                                                        "label": "Bold"
-                                                    },
-                                                    {
-                                                        "name": "italic",
-                                                        "type": "boolean",
-                                                        "label": "Italic"
-                                                    },
-                                                    {
-                                                        "name": "strikethrough",
-                                                        "type": "boolean",
-                                                        "label": "Strikethrough"
-                                                    },
-                                                    {
-                                                        "name": "underline",
-                                                        "type": "boolean",
-                                                        "label": "Underline"
-                                                    },
-                                                    {
-                                                        "name": "code",
-                                                        "type": "boolean",
-                                                        "label": "Code"
-                                                    },
-                                                    {
-                                                        "name": "color",
-                                                        "type": "text",
-                                                        "label": "Color"
-                                                    }
-                                                ],
-                                                "type": "collection",
-                                                "label": "Annotations"
-                                            },
-                                            {
-                                                "name": "plain_text",
-                                                "type": "text",
-                                                "label": "Plain Text"
-                                            },
-                                            {
-                                                "name": "href",
-                                                "type": "text",
-                                                "label": "HREF"
-                                            }
-                                        ],
-                                        "type": "collection"
-                                    },
-                                    "type": "array",
-                                    "label": "Text"
-                                },
-                                {
-                                    "name": "select",
-                                    "spec": [
-                                        {
-                                            "name": "id",
-                                            "type": "text",
-                                            "label": "ID"
-                                        },
-                                        {
-                                            "name": "name",
-                                            "type": "text",
-                                            "label": "Name"
-                                        },
-                                        {
-                                            "name": "color",
-                                            "type": "text",
-                                            "label": "Color"
-                                        }
-                                    ],
-                                    "type": "collection",
-                                    "label": "Select"
-                                },
-                                {
-                                    "name": "email",
-                                    "type": "text",
-                                    "label": "Email"
-                                },
-                                {
-                                    "name": "phone_number",
-                                    "type": "text",
-                                    "label": "Phone Number"
-                                },
-                                {
-                                    "name": "multi_select",
-                                    "spec": {
-                                        "spec": [
-                                            {
-                                                "name": "id",
-                                                "type": "text",
-                                                "label": "ID"
-                                            },
-                                            {
-                                                "name": "name",
-                                                "type": "text",
-                                                "label": "Name"
-                                            },
-                                            {
-                                                "name": "color",
-                                                "type": "text",
-                                                "label": "Color"
-                                            }
-                                        ],
-                                        "type": "collection"
-                                    },
-                                    "type": "array",
-                                    "label": "Multi Select"
-                                },
-                                {
-                                    "name": "date",
-                                    "spec": [
-                                        {
-                                            "name": "start",
-                                            "type": "date",
-                                            "label": "Start"
-                                        },
-                                        {
-                                            "name": "end",
-                                            "type": "date",
-                                            "label": "End"
-                                        }
-                                    ],
-                                    "type": "collection",
-                                    "label": "Date"
-                                },
-                                {
-                                    "name": "checkbox",
-                                    "type": "boolean",
-                                    "label": "Checkbox"
-                                },
-                                {
-                                    "name": "number",
-                                    "type": "number",
-                                    "label": "Number"
-                                },
-                                {
-                                    "name": "files",
-                                    "spec": {
-                                        "spec": [
-                                            {
-                                                "name": "name",
-                                                "type": "text",
-                                                "label": "Name"
-                                            }
-                                        ],
-                                        "type": "collection"
-                                    },
-                                    "type": "array",
-                                    "label": "Files"
-                                },
-                                {
-                                    "name": "title",
-                                    "spec": {
-                                        "spec": [
-                                            {
-                                                "name": "type",
-                                                "type": "text",
-                                                "label": "Type"
-                                            },
-                                            {
-                                                "name": "text",
-                                                "spec": [
-                                                    {
-                                                        "name": "content",
-                                                        "type": "text",
-                                                        "label": "Content"
-                                                    },
-                                                    {
-                                                        "name": "link",
-                                                        "type": "text",
-                                                        "label": "Link"
-                                                    }
-                                                ],
-                                                "type": "collection",
-                                                "label": "Text"
-                                            },
-                                            {
-                                                "name": "annotations",
-                                                "spec": [
-                                                    {
-                                                        "name": "bold",
-                                                        "type": "boolean",
-                                                        "label": "Bold"
-                                                    },
-                                                    {
-                                                        "name": "italic",
-                                                        "type": "boolean",
-                                                        "label": "Italic"
-                                                    },
-                                                    {
-                                                        "name": "strikethrough",
-                                                        "type": "boolean",
-                                                        "label": "Strikethrough"
-                                                    },
-                                                    {
-                                                        "name": "underline",
-                                                        "type": "boolean",
-                                                        "label": "Underline"
-                                                    },
-                                                    {
-                                                        "name": "code",
-                                                        "type": "boolean",
-                                                        "label": "Code"
-                                                    },
-                                                    {
-                                                        "name": "color",
-                                                        "type": "text",
-                                                        "label": "Color"
-                                                    }
-                                                ],
-                                                "type": "collection",
-                                                "label": "Annotations"
-                                            },
-                                            {
-                                                "name": "plain_text",
-                                                "type": "text",
-                                                "label": "Plain Text"
-                                            },
-                                            {
-                                                "name": "href",
-                                                "type": "text",
-                                                "label": "Href"
-                                            }
-                                        ],
-                                        "type": "collection"
-                                    },
-                                    "type": "array",
-                                    "label": "Title"
-                                },
-                                {
-                                    "name": "last_edited_time",
-                                    "time": true,
-                                    "type": "date",
-                                    "label": "Last Edited Time"
-                                },
-                                {
-                                    "name": "created_time",
-                                    "time": true,
-                                    "type": "date",
-                                    "label": "Created Time"
-                                },
-                                {
-                                    "name": "last_edited_by",
-                                    "spec": [
-                                        {
-                                            "name": "object",
-                                            "type": "text",
-                                            "label": "Object"
-                                        },
-                                        {
-                                            "name": "id",
-                                            "type": "text",
-                                            "label": "ID"
-                                        },
-                                        {
-                                            "name": "name",
-                                            "type": "text",
-                                            "label": "Name"
-                                        },
-                                        {
-                                            "name": "avatar_url",
-                                            "type": "text",
-                                            "label": "Avatar Url"
-                                        },
-                                        {
-                                            "name": "type",
-                                            "type": "text",
-                                            "label": "Type"
-                                        },
-                                        {
-                                            "name": "person",
-                                            "spec": [
-                                                {
-                                                    "name": "email",
-                                                    "type": "text",
-                                                    "label": "Email"
-                                                }
-                                            ],
-                                            "type": "collection",
-                                            "label": "Person"
-                                        }
-                                    ],
-                                    "type": "collection",
-                                    "label": "Last Edited By"
-                                },
-                                {
-                                    "name": "created_by",
-                                    "spec": [
-                                        {
-                                            "name": "object",
-                                            "type": "text",
-                                            "label": "Object"
-                                        },
-                                        {
-                                            "name": "id",
-                                            "type": "text",
-                                            "label": "ID"
-                                        },
-                                        {
-                                            "name": "name",
-                                            "type": "text",
-                                            "label": "Name"
-                                        },
-                                        {
-                                            "name": "avatar_url",
-                                            "type": "text",
-                                            "label": "Avatar Url"
-                                        },
-                                        {
-                                            "name": "type",
-                                            "type": "text",
-                                            "label": "Type"
-                                        },
-                                        {
-                                            "name": "person",
-                                            "spec": [
-                                                {
-                                                    "name": "email",
-                                                    "type": "text",
-                                                    "label": "Email"
-                                                }
-                                            ],
-                                            "type": "collection",
-                                            "label": "Person"
-                                        }
-                                    ],
-                                    "type": "collection",
-                                    "label": "Created By"
-                                },
-                                {
-                                    "name": "formula",
-                                    "spec": [
-                                        {
-                                            "name": "type",
-                                            "type": "text",
-                                            "label": "Type"
-                                        },
-                                        {
-                                            "name": "string",
-                                            "type": "text",
-                                            "label": "String"
-                                        }
-                                    ],
-                                    "type": "collection",
-                                    "label": "Formula"
-                                },
-                                {
-                                    "name": "relation",
-                                    "spec": {
-                                        "spec": [
-                                            {
-                                                "name": "id",
-                                                "type": "text",
-                                                "label": "ID"
-                                            }
-                                        ],
-                                        "type": "collection"
-                                    },
-                                    "type": "array",
-                                    "label": "Relation"
-                                },
-                                {
-                                    "name": "label",
-                                    "type": "text",
-                                    "label": "Label"
-                                }
-                            ],
-                            "type": "collection"
-                        },
-                        "type": "array",
-                        "label": "Properties"
-                    },
-                    {
-                        "name": "url",
-                        "type": "text",
-                        "label": "URL"
-                    },
-                    {
-                        "name": "public_url",
-                        "type": "text",
-                        "label": "Public URL"
-                    },
-                    {
-                        "name": "properties_value",
-                        "label": "Properties Value",
-                        "type": "collection",
-                        "spec": [
-                            {
-                                "name": "Generated Draft",
-                                "label": "Generated Draft",
-                                "type": "array",
-                                "spec": [
-                                    {
-                                        "name": "type",
-                                        "type": "text",
-                                        "label": "Type"
-                                    },
-                                    {
-                                        "name": "text",
-                                        "type": "collection",
-                                        "spec": [
-                                            {
-                                                "name": "content",
-                                                "type": "text",
-                                                "label": "Content"
-                                            },
-                                            {
-                                                "name": "link",
-                                                "type": "text",
-                                                "label": "Link"
-                                            }
-                                        ],
-                                        "label": "Text"
-                                    },
-                                    {
-                                        "name": "annotations",
-                                        "type": "collection",
-                                        "spec": [
-                                            {
-                                                "name": "bold",
-                                                "type": "boolean",
-                                                "label": "Bold"
-                                            },
-                                            {
-                                                "name": "italic",
-                                                "type": "boolean",
-                                                "label": "Italic"
-                                            },
-                                            {
-                                                "name": "strikethrough",
-                                                "type": "boolean",
-                                                "label": "Strikethrough"
-                                            },
-                                            {
-                                                "name": "underline",
-                                                "type": "boolean",
-                                                "label": "Underline"
-                                            },
-                                            {
-                                                "name": "code",
-                                                "type": "boolean",
-                                                "label": "Code"
-                                            },
-                                            {
-                                                "name": "color",
-                                                "type": "text",
-                                                "label": "Color"
-                                            }
-                                        ],
-                                        "label": "Annotations"
-                                    },
-                                    {
-                                        "name": "plain_text",
-                                        "type": "text",
-                                        "label": "Plain Text"
-                                    },
-                                    {
-                                        "name": "href",
-                                        "type": "text",
-                                        "label": "Href"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Rep / Owner ",
-                                "label": "Rep / Owner ",
-                                "type": "collection",
-                                "spec": [
-                                    {
-                                        "name": "id",
-                                        "type": "text",
-                                        "label": "ID"
-                                    },
-                                    {
-                                        "name": "name",
-                                        "type": "text",
-                                        "label": "Name"
-                                    },
-                                    {
-                                        "name": "color",
-                                        "type": "text",
-                                        "label": "Color"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "arget Email / Asset",
-                                "label": "arget Email / Asset",
-                                "type": "array",
-                                "spec": [
-                                    {
-                                        "name": "type",
-                                        "type": "text",
-                                        "label": "Type"
-                                    },
-                                    {
-                                        "name": "text",
-                                        "type": "collection",
-                                        "spec": [
-                                            {
-                                                "name": "content",
-                                                "type": "text",
-                                                "label": "Content"
-                                            },
-                                            {
-                                                "name": "link",
-                                                "type": "text",
-                                                "label": "Link"
-                                            }
-                                        ],
-                                        "label": "Text"
-                                    },
-                                    {
-                                        "name": "annotations",
-                                        "type": "collection",
-                                        "spec": [
-                                            {
-                                                "name": "bold",
-                                                "type": "boolean",
-                                                "label": "Bold"
-                                            },
-                                            {
-                                                "name": "italic",
-                                                "type": "boolean",
-                                                "label": "Italic"
-                                            },
-                                            {
-                                                "name": "strikethrough",
-                                                "type": "boolean",
-                                                "label": "Strikethrough"
-                                            },
-                                            {
-                                                "name": "underline",
-                                                "type": "boolean",
-                                                "label": "Underline"
-                                            },
-                                            {
-                                                "name": "code",
-                                                "type": "boolean",
-                                                "label": "Code"
-                                            },
-                                            {
-                                                "name": "color",
-                                                "type": "text",
-                                                "label": "Color"
-                                            }
-                                        ],
-                                        "label": "Annotations"
-                                    },
-                                    {
-                                        "name": "plain_text",
-                                        "type": "text",
-                                        "label": "Plain Text"
-                                    },
-                                    {
-                                        "name": "href",
-                                        "type": "text",
-                                        "label": "Href"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Status",
-                                "label": "Status",
-                                "type": "collection",
-                                "spec": [
-                                    {
-                                        "name": "id",
-                                        "type": "text",
-                                        "label": "ID"
-                                    },
-                                    {
-                                        "name": "name",
-                                        "type": "text",
-                                        "label": "Name"
-                                    },
-                                    {
-                                        "name": "color",
-                                        "type": "text",
-                                        "label": "Color"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Text",
-                                "label": "Text",
-                                "type": "array",
-                                "spec": [
-                                    {
-                                        "name": "type",
-                                        "type": "text",
-                                        "label": "Type"
-                                    },
-                                    {
-                                        "name": "text",
-                                        "type": "collection",
-                                        "spec": [
-                                            {
-                                                "name": "content",
-                                                "type": "text",
-                                                "label": "Content"
-                                            },
-                                            {
-                                                "name": "link",
-                                                "type": "text",
-                                                "label": "Link"
-                                            }
-                                        ],
-                                        "label": "Text"
-                                    },
-                                    {
-                                        "name": "annotations",
-                                        "type": "collection",
-                                        "spec": [
-                                            {
-                                                "name": "bold",
-                                                "type": "boolean",
-                                                "label": "Bold"
-                                            },
-                                            {
-                                                "name": "italic",
-                                                "type": "boolean",
-                                                "label": "Italic"
-                                            },
-                                            {
-                                                "name": "strikethrough",
-                                                "type": "boolean",
-                                                "label": "Strikethrough"
-                                            },
-                                            {
-                                                "name": "underline",
-                                                "type": "boolean",
-                                                "label": "Underline"
-                                            },
-                                            {
-                                                "name": "code",
-                                                "type": "boolean",
-                                                "label": "Code"
-                                            },
-                                            {
-                                                "name": "color",
-                                                "type": "text",
-                                                "label": "Color"
-                                            }
-                                        ],
-                                        "label": "Annotations"
-                                    },
-                                    {
-                                        "name": "plain_text",
-                                        "type": "text",
-                                        "label": "Plain Text"
-                                    },
-                                    {
-                                        "name": "href",
-                                        "type": "text",
-                                        "label": "Href"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Lead Name / Campaign Subject",
-                                "label": "Lead Name / Campaign Subject",
-                                "type": "array",
-                                "spec": [
-                                    {
-                                        "name": "type",
-                                        "type": "text",
-                                        "label": "Type"
-                                    },
-                                    {
-                                        "name": "text",
-                                        "type": "collection",
-                                        "spec": [
-                                            {
-                                                "name": "content",
-                                                "type": "text",
-                                                "label": "Content"
-                                            },
-                                            {
-                                                "name": "link",
-                                                "type": "text",
-                                                "label": "Link"
-                                            }
-                                        ],
-                                        "label": "Text"
-                                    },
-                                    {
-                                        "name": "annotations",
-                                        "type": "collection",
-                                        "spec": [
-                                            {
-                                                "name": "bold",
-                                                "type": "boolean",
-                                                "label": "Bold"
-                                            },
-                                            {
-                                                "name": "italic",
-                                                "type": "boolean",
-                                                "label": "Italic"
-                                            },
-                                            {
-                                                "name": "strikethrough",
-                                                "type": "boolean",
-                                                "label": "Strikethrough"
-                                            },
-                                            {
-                                                "name": "underline",
-                                                "type": "boolean",
-                                                "label": "Underline"
-                                            },
-                                            {
-                                                "name": "code",
-                                                "type": "boolean",
-                                                "label": "Code"
-                                            },
-                                            {
-                                                "name": "color",
-                                                "type": "text",
-                                                "label": "Color"
-                                            }
-                                        ],
-                                        "label": "Annotations"
-                                    },
-                                    {
-                                        "name": "plain_text",
-                                        "type": "text",
-                                        "label": "Plain Text"
-                                    },
-                                    {
-                                        "name": "href",
-                                        "type": "text",
-                                        "label": "Href"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        },
-        {
-            "id": 8,
-            "module": "google-email:sendAnEmail",
-            "version": 4,
-            "parameters": {
-                "__IMTCONN__": 10256942
-            },
-            "filter": {
-                "name": "Status is Approved",
-                "conditions": [
-                    [
-                        {
-                            "a": "{{7.properties_value.Status.name}}",
-                            "o": "text:equal:ci",
-                            "b": "Approved"
-                        }
-                    ]
-                ]
-            },
-            "mapper": {
-                "to": [
-                    "cedriccierva@gmail.com"
-                ],
-                "subject": "{{7.properties_value.`Lead Name / Campaign Subject`[].plain_text}}",
-                "bodyType": "rawHtml",
-                "content": "<p>{{7.properties_value.`Generated Draft`[].plain_text}}</p>\n<br>\n<p><strong>Featured Image:</strong></p>\n<img src=\"{{7.properties_value.`Image URl`}}\" alt=\"Featured Image\" style=\"max-width: 100%; height: auto; border-radius: 8px;\" />"
-            },
-            "metadata": {
-                "designer": {
-                    "x": 337,
-                    "y": -6
-                },
-                "restore": {
-                    "parameters": {
-                        "__IMTCONN__": {
-                            "label": "Cedric's Gmail connection (cedriccierva@gmail.com)",
-                            "data": {
-                                "scoped": "true",
-                                "connection": "google-email"
-                            }
-                        }
-                    },
-                    "expect": {
-                        "to": {
-                            "mode": "chose",
-                            "items": [
-                                null
-                            ]
-                        },
-                        "bodyType": {
-                            "label": "Raw HTML"
-                        },
-                        "attachments": {
-                            "mode": "chose"
-                        },
-                        "from": {
-                            "mode": "chose"
-                        },
-                        "cc": {
-                            "mode": "chose"
-                        },
-                        "bcc": {
-                            "mode": "chose"
-                        },
-                        "emailHeaders": {
-                            "mode": "chose"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "__IMTCONN__",
-                        "type": "account:google-email",
-                        "label": "Connection",
-                        "required": true
-                    }
-                ],
-                "expect": [
-                    {
-                        "name": "to",
-                        "type": "array",
-                        "label": "To",
-                        "required": true,
-                        "spec": {
-                            "type": "email",
-                            "label": "Recipient email address",
-                            "required": true,
-                            "validate": true,
-                            "name": "value"
-                        }
-                    },
-                    {
-                        "name": "subject",
-                        "type": "text",
-                        "label": "Subject"
-                    },
-                    {
-                        "name": "bodyType",
+                        "name": "valueRenderOption",
                         "type": "select",
-                        "label": "Body type",
-                        "required": true,
+                        "label": "Value render option",
                         "validate": {
                             "enum": [
-                                "rawHtml",
-                                "collection"
+                                "FORMATTED_VALUE",
+                                "UNFORMATTED_VALUE",
+                                "FORMULA"
                             ]
                         }
                     },
                     {
-                        "name": "attachments",
-                        "type": "array",
-                        "label": "Attachments",
-                        "spec": {
-                            "spec": [
-                                {
-                                    "name": "filename",
-                                    "type": "filename",
-                                    "label": "File name",
-                                    "required": true,
-                                    "semantic": "file:name"
-                                },
-                                {
-                                    "name": "data",
-                                    "type": "buffer",
-                                    "label": "Data",
-                                    "required": true,
-                                    "semantic": "file:data"
-                                }
-                            ],
-                            "type": "collection",
-                            "label": "Attachment",
-                            "name": "value"
+                        "name": "dateTimeRenderOption",
+                        "type": "select",
+                        "label": "Date and time render option",
+                        "validate": {
+                            "enum": [
+                                "SERIAL_NUMBER",
+                                "FORMATTED_STRING"
+                            ]
                         }
                     },
                     {
                         "name": "from",
                         "type": "select",
-                        "label": "From"
-                    },
-                    {
-                        "name": "cc",
-                        "type": "array",
-                        "label": "CC recipients",
-                        "spec": {
-                            "type": "email",
-                            "label": "Recipient email address",
-                            "name": "value"
+                        "label": "Drive",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "drive",
+                                "share",
+                                "team"
+                            ]
                         }
                     },
                     {
-                        "name": "bcc",
-                        "type": "array",
-                        "label": "BCC recipients",
-                        "spec": {
-                            "type": "email",
-                            "label": "Recipient email address",
-                            "name": "value"
-                        }
+                        "name": "spreadsheetId",
+                        "type": "file",
+                        "label": "Spreadsheet ID",
+                        "required": true
                     },
                     {
-                        "name": "emailHeaders",
-                        "type": "array",
-                        "label": "Additional email headers",
-                        "spec": {
-                            "spec": [
-                                {
-                                    "name": "key",
-                                    "type": "text",
-                                    "label": "Key",
-                                    "required": true
-                                },
-                                {
-                                    "name": "value",
-                                    "type": "text",
-                                    "label": "Value"
-                                }
-                            ],
-                            "type": "collection",
-                            "label": "Email header",
-                            "name": "value"
-                        }
+                        "name": "sheetId",
+                        "type": "select",
+                        "label": "Sheet Name",
+                        "required": true
                     },
                     {
-                        "name": "content",
+                        "name": "tableFirstRow",
                         "type": "text",
-                        "label": "Content"
+                        "label": "Row with headers",
+                        "required": true
                     }
-                ]
+                ],
+                "interface": [
+                    {
+                        "name": "__ROW_NUMBER__",
+                        "label": "Row number",
+                        "type": "number"
+                    },
+                    {
+                        "name": "__SPREADSHEET_ID__",
+                        "label": "Spreadsheet ID",
+                        "type": "text"
+                    },
+                    {
+                        "name": "__SHEET__",
+                        "label": "Sheet",
+                        "type": "text"
+                    },
+                    {
+                        "name": "0",
+                        "label": "Topic Title (A)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "1",
+                        "label": "Blog URL (B)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "2",
+                        "label": "Status (C)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "3",
+                        "label": "Post Copy (D)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "4",
+                        "label": "Image Prompt (E)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "5",
+                        "label": "Image URL (F)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "6",
+                        "label": "Error Log (G)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "7",
+                        "label": "(H)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "8",
+                        "label": "(I)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "9",
+                        "label": "(J)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "10",
+                        "label": "(K)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "11",
+                        "label": "(L)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "12",
+                        "label": "(M)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "13",
+                        "label": "(N)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "14",
+                        "label": "(O)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "15",
+                        "label": "(P)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "16",
+                        "label": "(Q)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "17",
+                        "label": "(R)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "18",
+                        "label": "(S)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "19",
+                        "label": "(T)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "20",
+                        "label": "(U)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "21",
+                        "label": "(V)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "22",
+                        "label": "(W)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "23",
+                        "label": "(X)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "24",
+                        "label": "(Y)",
+                        "type": "text"
+                    },
+                    {
+                        "name": "25",
+                        "label": "(Z)",
+                        "type": "text"
+                    }
+                ],
+                "advanced": true
             }
         },
         {
-            "id": 13,
-            "module": "telegram:SendPhoto",
-            "version": 1,
+            "id": 7,
+            "module": "http:MakeRequest",
+            "version": 4,
             "parameters": {
-                "__IMTCONN__": 11025882
+                "authenticationType": "noAuth",
+                "tlsType": ""
             },
             "mapper": {
-                "chatId": "-1003921313219",
-                "messageThreadId": "",
-                "caption": "{{7.properties_value.`Generated Draft`[].plain_text}}",
-                "sendType": "send_byurl",
-                "parseMode": "",
-                "replyToMessageId": "",
-                "replyMarkupAssembleType": "reply_markup_enter",
-                "contentType": "",
-                "httpUrl": "{{7.properties_value.`Image URl`}}",
-                "replyMarkup": ""
+                "url": "https://blissful-junkyard-elevating.ngrok-free.dev/api/generate",
+                "method": "post",
+                "contentType": "json",
+                "parseResponse": true,
+                "stopOnHttpError": true,
+                "allowRedirects": true,
+                "shareCookies": false,
+                "requestCompressedContent": true,
+                "inputMethod": "jsonString",
+                "jsonStringBodyContent": "{\n  \"model\": \"qwen2.5-coder:3b\",\n  \"format\": \"json\",\n  \"prompt\": \"You are an expert social media strategist. Output ONLY a valid JSON object with NO markdown formatting, NO backticks, and NO conversational text.\\n\\nTopic Title: {{1.`0`}}\\nBlog URL: {{1.`1`}}\\n\\nRequired JSON keys:\\n1. \\\"post_copy\\\": A professional LinkedIn post with hooks, key insights, and relevant hashtags.\\n2. \\\"image_prompt\\\": A detailed visual prompt (16:9 ratio) for generating a realistic, candid photograph representing this topic. It must describe a real-world, unpolished environment with natural, uneven lighting and realistic textures. STRICTLY FORBIDDEN: 3d renders, digital art, illustrations, vector graphics, abstract shapes, or synthetic plastic skin. Include terms like 'candid editorial photo, 35mm lens, natural film grain'.\",\n  \"stream\": false\n}\n"
             },
             "metadata": {
                 "designer": {
-                    "x": 637,
-                    "y": -6
+                    "x": 300,
+                    "y": 15
                 },
                 "restore": {
                     "parameters": {
-                        "__IMTCONN__": {
-                            "label": "Cedric's Telegram Bot connection",
-                            "data": {
-                                "scoped": "true",
-                                "connection": "telegram"
-                            }
+                        "authenticationType": {
+                            "label": "No authenticationUse when no credentials are required for the request."
+                        },
+                        "tlsType": {
+                            "label": "Empty"
                         }
                     },
                     "expect": {
-                        "sendType": {
-                            "label": "HTTP URL"
+                        "method": {
+                            "mode": "chose",
+                            "label": "POST"
                         },
-                        "parseMode": {
-                            "label": "Empty"
+                        "headers": {
+                            "mode": "chose"
                         },
-                        "replyMarkupAssembleType": {
-                            "label": "Enter the Reply Markup"
+                        "queryParameters": {
+                            "mode": "chose"
                         },
                         "contentType": {
-                            "mode": "chose",
+                            "label": "application/jsonEnter data in the JSON format, as a string or using a data structure."
+                        },
+                        "parseResponse": {
+                            "mode": "chose"
+                        },
+                        "stopOnHttpError": {
+                            "mode": "chose"
+                        },
+                        "allowRedirects": {
+                            "mode": "chose"
+                        },
+                        "shareCookies": {
+                            "mode": "chose"
+                        },
+                        "requestCompressedContent": {
+                            "mode": "chose"
+                        },
+                        "inputMethod": {
+                            "label": "JSON stringEnter the JSON body as a raw text string. If values contain JSON reserved characters, you must escape them manually."
+                        },
+                        "paginationType": {
                             "label": "Empty"
                         }
                     }
                 },
                 "parameters": [
                     {
-                        "name": "__IMTCONN__",
-                        "type": "account:telegram",
-                        "label": "Connection",
-                        "required": true
+                        "name": "authenticationType",
+                        "type": "select",
+                        "label": "Authentication type",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "noAuth",
+                                "apiKey",
+                                "basicAuth",
+                                "oAuth"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "tlsType",
+                        "type": "select",
+                        "label": "Transport layer security (TLS)",
+                        "validate": {
+                            "enum": [
+                                "mTls",
+                                "tls"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "proxyKeychain",
+                        "type": "keychain:proxy",
+                        "label": "Proxy"
                     }
                 ],
                 "expect": [
                     {
-                        "name": "chatId",
-                        "type": "text",
-                        "label": "Chat ID",
+                        "name": "url",
+                        "type": "url",
+                        "label": "URL",
                         "required": true
                     },
                     {
-                        "name": "messageThreadId",
-                        "type": "number",
-                        "label": "Message Thread ID"
-                    },
-                    {
-                        "name": "caption",
-                        "type": "text",
-                        "label": "Caption"
-                    },
-                    {
-                        "name": "sendType",
+                        "name": "method",
                         "type": "select",
-                        "label": "Send by",
+                        "label": "Method",
                         "required": true,
                         "validate": {
                             "enum": [
-                                "send_bydata",
-                                "send_byurl",
-                                "send_byid"
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "patch",
+                                "delete",
+                                "options"
                             ]
                         }
                     },
                     {
-                        "name": "parseMode",
-                        "type": "select",
-                        "label": "Parse Mode",
-                        "validate": {
-                            "enum": [
-                                "Markdown",
-                                "HTML"
+                        "name": "headers",
+                        "type": "array",
+                        "label": "Headers",
+                        "spec": {
+                            "name": "value",
+                            "label": "Header",
+                            "type": "collection",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "label": "Name",
+                                    "type": "text",
+                                    "required": true,
+                                    "validate": {
+                                        "pattern": "^[-!#$%&'*+.^_`|~0-9A-Za-z]+$"
+                                    }
+                                },
+                                {
+                                    "name": "value",
+                                    "label": "Value",
+                                    "type": "text"
+                                }
                             ]
                         }
                     },
                     {
-                        "name": "disableNotification",
-                        "type": "boolean",
-                        "label": "Disable Notifications"
-                    },
-                    {
-                        "name": "replyToMessageId",
-                        "type": "number",
-                        "label": "Original Message ID"
-                    },
-                    {
-                        "name": "replyMarkupAssembleType",
-                        "type": "select",
-                        "label": "Enter/Assemble the Reply Markup Field",
-                        "validate": {
-                            "enum": [
-                                "reply_markup_enter",
-                                "reply_markup_assemble"
+                        "name": "queryParameters",
+                        "type": "array",
+                        "label": "Query parameters",
+                        "spec": {
+                            "name": "value",
+                            "label": "Parameter",
+                            "type": "collection",
+                            "spec": [
+                                {
+                                    "name": "name",
+                                    "label": "Name",
+                                    "type": "text",
+                                    "required": true
+                                },
+                                {
+                                    "name": "value",
+                                    "label": "Value",
+                                    "type": "text"
+                                }
                             ]
                         }
                     },
                     {
                         "name": "contentType",
                         "type": "select",
-                        "label": "Content Type"
+                        "label": "Body content type",
+                        "validate": {
+                            "enum": [
+                                "json",
+                                "multipart",
+                                "urlEncoded",
+                                "custom"
+                            ]
+                        }
                     },
                     {
-                        "name": "httpUrl",
-                        "type": "url",
-                        "label": "URL",
+                        "name": "parseResponse",
+                        "type": "boolean",
+                        "label": "Parse response",
                         "required": true
                     },
                     {
-                        "name": "replyMarkup",
+                        "name": "stopOnHttpError",
+                        "type": "boolean",
+                        "label": "Return error if HTTP request fails",
+                        "required": true
+                    },
+                    {
+                        "name": "timeout",
+                        "type": "uinteger",
+                        "label": "Timeout",
+                        "validate": {
+                            "min": 1,
+                            "max": 300
+                        }
+                    },
+                    {
+                        "name": "allowRedirects",
+                        "type": "boolean",
+                        "label": "Allow redirects",
+                        "required": true
+                    },
+                    {
+                        "name": "shareCookies",
+                        "type": "boolean",
+                        "label": "Share cookies with other HTTP modules",
+                        "required": true
+                    },
+                    {
+                        "name": "requestCompressedContent",
+                        "type": "boolean",
+                        "label": "Request compressed content",
+                        "required": true
+                    },
+                    {
+                        "name": "inputMethod",
+                        "type": "select",
+                        "label": "Body input method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "dataStructure",
+                                "jsonString"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "jsonStringBodyContent",
                         "type": "text",
-                        "label": "Reply Markup"
+                        "label": "Body content",
+                        "required": true
+                    },
+                    {
+                        "name": "paginationType",
+                        "type": "select",
+                        "label": "Pagination type",
+                        "validate": {
+                            "enum": [
+                                "offsetBased",
+                                "pageBased",
+                                "urlBased",
+                                "tokenBased"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "data",
+                        "label": "Data",
+                        "type": "any"
+                    },
+                    {
+                        "name": "statusCode",
+                        "label": "Status Code",
+                        "type": "number"
+                    },
+                    {
+                        "name": "headers",
+                        "label": "Headers",
+                        "type": "collection",
+                        "spec": [
+                            {
+                                "name": "content-length",
+                                "label": "Content-Length",
+                                "type": "text"
+                            },
+                            {
+                                "name": "content-encoding",
+                                "label": "Content-Encoding",
+                                "type": "text"
+                            },
+                            {
+                                "name": "content-type",
+                                "label": "Content-Type",
+                                "type": "text"
+                            },
+                            {
+                                "name": "server",
+                                "label": "Server",
+                                "type": "text"
+                            },
+                            {
+                                "name": "cache-control",
+                                "label": "Cache-Control",
+                                "type": "text"
+                            },
+                            {
+                                "name": "set-cookie",
+                                "label": "Set-Cookie",
+                                "type": "array",
+                                "spec": {
+                                    "type": "text"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "advanced": true
+            },
+            "onerror": [
+                {
+                    "id": 47,
+                    "module": "util:SetVariable2",
+                    "version": 1,
+                    "parameters": {},
+                    "mapper": {
+                        "name": "fallback url",
+                        "scope": "roundtrip",
+                        "value": "https://unsplash.com"
+                    },
+                    "metadata": {
+                        "designer": {
+                            "x": 308,
+                            "y": 308
+                        },
+                        "restore": {
+                            "expect": {
+                                "scope": {
+                                    "label": "One cycle"
+                                }
+                            }
+                        },
+                        "expect": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Variable name",
+                                "required": true
+                            },
+                            {
+                                "name": "scope",
+                                "type": "select",
+                                "label": "Variable lifetime",
+                                "required": true,
+                                "validate": {
+                                    "enum": [
+                                        "roundtrip",
+                                        "execution"
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "value",
+                                "type": "any",
+                                "label": "Variable value"
+                            }
+                        ],
+                        "interface": [
+                            {
+                                "name": "fallback url",
+                                "label": "fallback url",
+                                "type": "any"
+                            }
+                        ],
+                        "advanced": true
+                    }
+                }
+            ]
+        },
+        {
+            "id": 14,
+            "module": "json:ParseJSON",
+            "version": 1,
+            "parameters": {
+                "type": 490043
+            },
+            "mapper": {
+                "json": "{{7.data.response}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 604,
+                    "y": 2
+                },
+                "restore": {
+                    "parameters": {
+                        "type": {
+                            "label": "Promt"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "type",
+                        "type": "udt",
+                        "label": "Data structure"
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "json",
+                        "type": "text",
+                        "label": "JSON string",
+                        "required": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "help": "",
+                        "name": "Ollama promt",
+                        "type": "text",
+                        "label": null
                     }
                 ]
             }
         },
         {
-            "id": 9,
-            "module": "notion:updateADatabaseItem",
+            "id": 21,
+            "module": "google-sheets:updateRow",
+            "version": 2,
+            "parameters": {
+                "__IMTCONN__": 10964532
+            },
+            "mapper": {
+                "mode": "select",
+                "valueInputOption": "USER_ENTERED",
+                "from": "drive",
+                "spreadsheetId": "/1NQGNA8lTn2JS_vD-QHBV3sQ24nurfnEG/12nsxgUAQPKmIVpCk03vTTbftkGqoUVHQYjwS1lYN4Hs",
+                "sheetId": "Sheet1",
+                "rowNumber": "{{1.`__ROW_NUMBER__`}}",
+                "includesHeaders": true,
+                "useColumnHeaders": false,
+                "values": {
+                    "1": "{{1.`1`}}",
+                    "2": "stage for review",
+                    "3": "{{1.`3`}}",
+                    "5": "https://pollinations.ai/p/{{encodeURL(14.image_prompt)}}?width=1200&height=675&nologo=true"
+                }
+            },
+            "metadata": {
+                "designer": {
+                    "x": 911,
+                    "y": 6
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "label": "Cedric's Google connection (cedriccierva@gmail.com)",
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            }
+                        }
+                    },
+                    "expect": {
+                        "mode": {
+                            "label": "Search by path"
+                        },
+                        "valueInputOption": {
+                            "mode": "chose",
+                            "label": "User entered"
+                        },
+                        "from": {
+                            "label": "My Drive"
+                        },
+                        "spreadsheetId": {
+                            "path": [
+                                "Automation ",
+                                "Social Content Engine"
+                            ]
+                        },
+                        "sheetId": {
+                            "label": "Sheet1"
+                        },
+                        "includesHeaders": {
+                            "label": "Yes"
+                        },
+                        "useColumnHeaders": {
+                            "label": "No"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "mode",
+                        "type": "select",
+                        "label": "Search Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "select",
+                                "fromAll",
+                                "map"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "valueInputOption",
+                        "type": "select",
+                        "label": "Value input option",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "USER_ENTERED",
+                                "RAW"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "from",
+                        "type": "select",
+                        "label": "Drive",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "drive",
+                                "share",
+                                "team"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "spreadsheetId",
+                        "type": "file",
+                        "label": "Spreadsheet Name",
+                        "required": true
+                    },
+                    {
+                        "name": "sheetId",
+                        "type": "select",
+                        "label": "Sheet Name",
+                        "required": true
+                    },
+                    {
+                        "name": "rowNumber",
+                        "type": "uinteger",
+                        "label": "Row number",
+                        "required": true
+                    },
+                    {
+                        "name": "includesHeaders",
+                        "type": "select",
+                        "label": "Table contains headers",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                true,
+                                false
+                            ]
+                        }
+                    },
+                    {
+                        "name": "useColumnHeaders",
+                        "type": "select",
+                        "label": "Use column headers as IDs of the columns",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                true,
+                                false
+                            ]
+                        }
+                    },
+                    {
+                        "name": "values",
+                        "type": "collection",
+                        "label": "Values in columns",
+                        "metadata": [
+                            [
+                                [
+                                    "Topic Title",
+                                    "Blog URL",
+                                    "Status",
+                                    "Post Copy",
+                                    "Image Prompt",
+                                    "Image URL",
+                                    "Error Log"
+                                ]
+                            ]
+                        ],
+                        "spec": [
+                            {
+                                "name": "0",
+                                "type": "text",
+                                "label": "Topic Title (A)"
+                            },
+                            {
+                                "name": "1",
+                                "type": "text",
+                                "label": "Blog URL (B)"
+                            },
+                            {
+                                "name": "2",
+                                "type": "text",
+                                "label": "Status (C)"
+                            },
+                            {
+                                "name": "3",
+                                "type": "text",
+                                "label": "Post Copy (D)"
+                            },
+                            {
+                                "name": "4",
+                                "type": "text",
+                                "label": "Image Prompt (E)"
+                            },
+                            {
+                                "name": "5",
+                                "type": "text",
+                                "label": "Image URL (F)"
+                            },
+                            {
+                                "name": "6",
+                                "type": "text",
+                                "label": "Error Log (G)"
+                            },
+                            {
+                                "name": "7",
+                                "type": "text",
+                                "label": "(H)"
+                            },
+                            {
+                                "name": "8",
+                                "type": "text",
+                                "label": "(I)"
+                            },
+                            {
+                                "name": "9",
+                                "type": "text",
+                                "label": "(J)"
+                            },
+                            {
+                                "name": "10",
+                                "type": "text",
+                                "label": "(K)"
+                            },
+                            {
+                                "name": "11",
+                                "type": "text",
+                                "label": "(L)"
+                            },
+                            {
+                                "name": "12",
+                                "type": "text",
+                                "label": "(M)"
+                            },
+                            {
+                                "name": "13",
+                                "type": "text",
+                                "label": "(N)"
+                            },
+                            {
+                                "name": "14",
+                                "type": "text",
+                                "label": "(O)"
+                            },
+                            {
+                                "name": "15",
+                                "type": "text",
+                                "label": "(P)"
+                            },
+                            {
+                                "name": "16",
+                                "type": "text",
+                                "label": "(Q)"
+                            },
+                            {
+                                "name": "17",
+                                "type": "text",
+                                "label": "(R)"
+                            },
+                            {
+                                "name": "18",
+                                "type": "text",
+                                "label": "(S)"
+                            },
+                            {
+                                "name": "19",
+                                "type": "text",
+                                "label": "(T)"
+                            },
+                            {
+                                "name": "20",
+                                "type": "text",
+                                "label": "(U)"
+                            },
+                            {
+                                "name": "21",
+                                "type": "text",
+                                "label": "(V)"
+                            },
+                            {
+                                "name": "22",
+                                "type": "text",
+                                "label": "(W)"
+                            },
+                            {
+                                "name": "23",
+                                "type": "text",
+                                "label": "(X)"
+                            },
+                            {
+                                "name": "24",
+                                "type": "text",
+                                "label": "(Y)"
+                            },
+                            {
+                                "name": "25",
+                                "type": "text",
+                                "label": "(Z)"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "onerror": [
+                {
+                    "id": 22,
+                    "module": "builtin:Ignore",
+                    "version": 1,
+                    "parameters": {},
+                    "mapper": {},
+                    "metadata": {
+                        "designer": {
+                            "x": 919,
+                            "y": 307
+                        },
+                        "restore": {}
+                    }
+                }
+            ]
+        },
+        {
+            "id": 38,
+            "module": "notion:createAPage",
             "version": 1,
             "parameters": {
                 "__IMTCONN__": 10992116
             },
             "mapper": {
-                "updateBy": "data_source",
                 "select": "list",
-                "data_source": "3d667e0e-a952-808d-8d5b-000b6358da3e",
-                "page": "{{7.id}}",
+                "database": "3d667e0e-a952-8009-bef8-e22a72c90290",
                 "fields": {
-                    "dPpE": "sent"
+                    "title": "{{1.`0`}}",
+                    "Cl%7Cz": "{{14.post_copy}}",
+                    "Uzkq": "https://image.pollinations.ai/prompt/{{encodeURL(14.image_prompt)}}",
+                    "dPpE": "Needs Review"
                 }
             },
             "metadata": {
                 "designer": {
-                    "x": 965,
-                    "y": -14
+                    "x": 1252,
+                    "y": 19
                 },
                 "restore": {
                     "parameters": {
@@ -1430,21 +1081,101 @@
                         }
                     },
                     "expect": {
-                        "updateBy": {
-                            "mode": "chose",
-                            "label": "Data SourceThis must be used if your database has multiple data sources."
-                        },
                         "select": {
                             "label": "Select from the list"
                         },
-                        "data_source": {
+                        "database": {
                             "rpcSearch": {
                                 "label": "Content & Lead Review",
-                                "value": "3d667e0e-a952-808d-8d5b-000b6358da3e"
-                            }
-                        },
-                        "page": {
-                            "mode": "edit"
+                                "value": "3d667e0e-a952-8009-bef8-e22a72c90290"
+                            },
+                            "nested": [
+                                {
+                                    "name": "fields",
+                                    "label": "Fields",
+                                    "type": "collection",
+                                    "spec": [
+                                        {
+                                            "name": "title",
+                                            "label": "Lead Name / Campaign Subject",
+                                            "required": true,
+                                            "metadata": {
+                                                "type": "title"
+                                            },
+                                            "type": "text"
+                                        },
+                                        {
+                                            "name": "Cl%7Cz",
+                                            "label": "Generated Draft",
+                                            "metadata": {
+                                                "type": "rich_text"
+                                            },
+                                            "type": "text"
+                                        },
+                                        {
+                                            "name": "DGaO",
+                                            "label": "Rep / Owner ",
+                                            "metadata": {
+                                                "type": "select"
+                                            },
+                                            "type": "select",
+                                            "validate": false,
+                                            "options": []
+                                        },
+                                        {
+                                            "name": "NF%5BX",
+                                            "label": "arget Email / Asset",
+                                            "metadata": {
+                                                "type": "rich_text"
+                                            },
+                                            "type": "text"
+                                        },
+                                        {
+                                            "name": "Uzkq",
+                                            "label": "Image URl",
+                                            "metadata": {
+                                                "type": "url"
+                                            },
+                                            "type": "url"
+                                        },
+                                        {
+                                            "name": "dPpE",
+                                            "label": "Status",
+                                            "metadata": {
+                                                "type": "select"
+                                            },
+                                            "type": "select",
+                                            "validate": false,
+                                            "options": [
+                                                {
+                                                    "label": "sent",
+                                                    "value": "sent"
+                                                },
+                                                {
+                                                    "label": "Needs Review",
+                                                    "value": "Needs Review"
+                                                },
+                                                {
+                                                    "label": "Approved",
+                                                    "value": "Approved"
+                                                },
+                                                {
+                                                    "label": "and Rejected",
+                                                    "value": "and Rejected"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "name": "rGYL",
+                                            "label": "Text",
+                                            "metadata": {
+                                                "type": "rich_text"
+                                            },
+                                            "type": "text"
+                                        }
+                                    ]
+                                }
+                            ]
                         },
                         "fields": {
                             "nested": {
@@ -1454,7 +1185,7 @@
                                 },
                                 "dPpE": {
                                     "mode": "chose",
-                                    "label": "sent"
+                                    "label": "Needs Review"
                                 }
                             }
                         }
@@ -1470,21 +1201,9 @@
                 ],
                 "expect": [
                     {
-                        "name": "updateBy",
-                        "type": "select",
-                        "label": "Update By",
-                        "required": true,
-                        "validate": {
-                            "enum": [
-                                "data_source",
-                                "database"
-                            ]
-                        }
-                    },
-                    {
                         "name": "select",
                         "type": "select",
-                        "label": "Enter a Data Source ID",
+                        "label": "Enter a Database ID",
                         "required": true,
                         "validate": {
                             "enum": [
@@ -1494,16 +1213,9 @@
                         }
                     },
                     {
-                        "name": "data_source",
+                        "name": "database",
                         "type": "text",
-                        "label": "Data Source ID",
-                        "required": true
-                    },
-                    {
-                        "name": "page",
-                        "type": "select",
-                        "label": "Data Source Item ID",
-                        "mode": "edit",
+                        "label": "Database ID",
                         "required": true
                     },
                     {
@@ -1517,7 +1229,8 @@
                                 "label": "Lead Name / Campaign Subject",
                                 "metadata": {
                                     "type": "title"
-                                }
+                                },
+                                "required": true
                             },
                             {
                                 "name": "Cl%7Cz",
@@ -1541,6 +1254,14 @@
                                 "label": "arget Email / Asset",
                                 "metadata": {
                                     "type": "rich_text"
+                                }
+                            },
+                            {
+                                "name": "Uzkq",
+                                "type": "url",
+                                "label": "Image URl",
+                                "metadata": {
+                                    "type": "url"
                                 }
                             },
                             {
@@ -1593,12 +1314,12 @@
                             },
                             {
                                 "name": "id",
-                                "type": "text",
+                                "type": "uuid",
                                 "label": "ID"
                             }
                         ],
                         "type": "collection",
-                        "label": "Created By"
+                        "label": "Created by"
                     },
                     {
                         "name": "last_edited_by",
@@ -1610,12 +1331,12 @@
                             },
                             {
                                 "name": "id",
-                                "type": "text",
+                                "type": "uuid",
                                 "label": "ID"
                             }
                         ],
                         "type": "collection",
-                        "label": "Last Edited By"
+                        "label": "Last Edited by"
                     },
                     {
                         "name": "icon",
@@ -1685,11 +1406,6 @@
                                 "name": "database_id",
                                 "type": "text",
                                 "label": "Database ID"
-                            },
-                            {
-                                "name": "data_source_id",
-                                "type": "text",
-                                "label": "Data Source ID"
                             }
                         ],
                         "type": "collection",
@@ -1699,11 +1415,6 @@
                         "name": "archived",
                         "type": "boolean",
                         "label": "Archived"
-                    },
-                    {
-                        "name": "in_trash",
-                        "type": "boolean",
-                        "label": "In Trash"
                     },
                     {
                         "name": "properties",
@@ -1741,7 +1452,7 @@
                                             {
                                                 "name": "avatar_url",
                                                 "type": "text",
-                                                "label": "Avatar URL"
+                                                "label": "Avatar Url"
                                             },
                                             {
                                                 "name": "type",
@@ -1842,7 +1553,7 @@
                                             {
                                                 "name": "href",
                                                 "type": "text",
-                                                "label": "HREF"
+                                                "label": "Href"
                                             }
                                         ],
                                         "type": "collection"
@@ -2061,7 +1772,7 @@
                                         {
                                             "name": "avatar_url",
                                             "type": "text",
-                                            "label": "Avatar URL"
+                                            "label": "Avatar Url"
                                         },
                                         {
                                             "name": "type",
@@ -2105,7 +1816,7 @@
                                         {
                                             "name": "avatar_url",
                                             "type": "text",
-                                            "label": "Avatar URL"
+                                            "label": "Avatar Url"
                                         },
                                         {
                                             "name": "type",
@@ -2170,16 +1881,6 @@
                         },
                         "type": "array",
                         "label": "Properties"
-                    },
-                    {
-                        "name": "public_url",
-                        "type": "text",
-                        "label": "Public URL"
-                    },
-                    {
-                        "name": "request_id",
-                        "type": "text",
-                        "label": "Request ID"
                     },
                     {
                         "name": "properties_value",
@@ -2359,6 +2060,11 @@
                                         "label": "Href"
                                     }
                                 ]
+                            },
+                            {
+                                "name": "Image URl",
+                                "label": "Image URl",
+                                "type": "text"
                             },
                             {
                                 "name": "Status",
@@ -2540,15 +2246,15 @@
             },
             "onerror": [
                 {
-                    "id": 11,
-                    "module": "builtin:Commit",
+                    "id": 46,
+                    "module": "builtin:Ignore",
                     "version": 1,
                     "parameters": {},
                     "mapper": {},
                     "metadata": {
                         "designer": {
-                            "x": 946,
-                            "y": 233
+                            "x": 1256,
+                            "y": 307
                         },
                         "restore": {}
                     }
@@ -2564,7 +2270,7 @@
             "maxErrors": 3,
             "autoCommit": true,
             "autoCommitTriggerLast": true,
-            "sequential": false,
+            "sequential": true,
             "slots": null,
             "confidential": false,
             "dataloss": false,
