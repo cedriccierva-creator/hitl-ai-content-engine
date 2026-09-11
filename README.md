@@ -1,4 +1,4 @@
-# 🚀 Enterprise Human-in-the-Loop (HITL) AI Content Engine
+# Enterprise Human-in-the-Loop (HITL) AI Content Engine
 
 ![Make.com](https://img.shields.io/badge/Make.com-Visual_Automation-purple)
 ![Notion API](https://img.shields.io/badge/Notion_API-Database_Staging-black)
